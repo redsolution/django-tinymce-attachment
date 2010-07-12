@@ -41,6 +41,24 @@ Add attachment to urls.py BEFORE ``admin/``::
         (r'^', include('attachment.urls')), # Must be placed before admin/
 
 
+In template:
+------------
+
+Also you can get list of attachments in your templates.
+First of all, load the attachment_tags in every template you want to use it::
+
+    {% load attachment_tags %}
+
+Use::
+    {% show_<attachments|images|files> for <object> %}
+
+Or::
+    {% get_<attachments|images|files> for <object> as <variable> %}
+    {% for attachment in <variable> %}
+        {{ attachment.file }}
+    {% endfor %}
+
+
 Example:
 ========
 
@@ -68,6 +86,23 @@ Example:
         (r'^', include('attachment.urls')), # Must be placed before admin/
         (r'^admin/', include(admin.site.urls)),
     )
+
+``templates/object.html``::
+    {% load attachment_tags %}
+    <html>
+        <body>
+            {% get_attachments for object as attachments %}
+			<ul>
+			    {% for attachment in attachments %}
+			        {% if attachment.image %}
+			            <li><a href="{{ attachment.image.url }}"><img src="{{ attachment.thumb.url }}" /></a></li>
+			        {% else %}
+			            <li><a href="{{ attachment.file.url }}">{{ attachment.file.url }}</a></li>
+			        {% endif %}
+			    {% endfor %}
+			</ul>
+        </body>
+    </html>
         
 
 Now you can attach images and files to Item-object.

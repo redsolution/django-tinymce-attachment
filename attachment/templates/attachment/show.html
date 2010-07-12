@@ -1,0 +1,9 @@
+<ul>
+    {% for attachment in attachments %}
+        {% if attachment.image %}
+            <li><a href="{{ attachment.image.url }}"><img src="{{ attachment.thumb.url }}" /></a></li>
+        {% else %}
+            <li><a href="{{ attachment.file.url }}">{{ attachment.file.url }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
