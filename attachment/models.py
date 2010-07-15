@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
+from attachment.fields import ImagePreviewField
+
 class AttachmentImage(ImageModel):
     class Meta:
         verbose_name = _('image')
@@ -23,7 +25,7 @@ class AttachmentImage(ImageModel):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-    image = models.ImageField(verbose_name=_('image'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+    image = ImagePreviewField(verbose_name=_('image'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
 
     def __unicode__(self):
         if self.image:

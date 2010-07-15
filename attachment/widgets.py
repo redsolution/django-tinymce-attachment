@@ -3,7 +3,7 @@
 from django.utils.safestring import mark_safe
 from django.contrib.admin.widgets import AdminFileWidget
 
-class ImageAdminWidget(AdminFileWidget):
+class ImagePreviewWidget(AdminFileWidget):
     def render(self, name, value, attrs=None):
         output = []
         output.append(super(AdminFileWidget, self).render(name, value, attrs)) # really for AdminFileWidget
