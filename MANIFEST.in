@@ -1,0 +1,2 @@
+recursive-include attachment *.py
+recursive-include attachment *.html
