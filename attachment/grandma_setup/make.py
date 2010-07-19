@@ -9,11 +9,11 @@ class Make(BaseMake):
         attachment_settings = AttachmentSettings.objects.get_settings()
         grandma_settings = GrandmaSettings.objects.get_settings()
         grandma_settings.render_to('urls.py', 'attachment/grandma/urls.py', {
-            'urls_settings': urls_settings,
+            'attachment_settings': attachment_settings,
         })
 
     def postmake(self):
-        super(Make, self).make()
+        super(Make, self).postmake()
         attachment_settings = AttachmentSettings.objects.get_settings()
         grandma_settings = GrandmaSettings.objects.get_settings()
         grandma_settings.render_to('settings.py', 'attachment/grandma/settings.py', {
