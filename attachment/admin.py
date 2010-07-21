@@ -41,8 +41,8 @@ for model_name in settings.ATTACHMENT_FOR_MODELS:
 
     setattr(model_admin, 'inlines', getattr(model_admin, 'inlines', []))
     if not AttachmentImageInlines in model_admin.inlines:
-        model_admin.inlines.append(AttachmentImageInlines)
+        model_admin.inlines = list(model_admin.inlines)[:] + [AttachmentImageInlines]
     if not AttachmentFileInlines in model_admin.inlines:
-        model_admin.inlines.append(AttachmentFileInlines)
+        model_admin.inlines = list(model_admin.inlines)[:] + [AttachmentFileInlines]
 
     admin.site.register(model, model_admin)
