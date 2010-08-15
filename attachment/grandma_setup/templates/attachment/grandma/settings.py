@@ -1,5 +1,10 @@
 # django-tinymce-attachment
-INSTALLED_APPS += ['attachment']
+
+INSTALLED_APPS += [
+    'attachment',
+    'tinymce',
+    'imagekit',
+]
 
 ATTACHMENT_FOR_MODELS = [{% for model in attachment_settings.models.all %}
     '{{ model.model }}',{% endfor %}
@@ -8,3 +13,4 @@ ATTACHMENT_FOR_MODELS = [{% for model in attachment_settings.models.all %}
 ATTACHMENT_LINK_MODELS = [{% for link in attachment_settings.links.all %}
     '{{ link.model }}',{% endfor %}
 ]
+
