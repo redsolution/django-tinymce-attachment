@@ -23,7 +23,7 @@ setup(
     maintainer='Alexander Ivanov',
     maintainer_email='alexander.ivanov@redsolution.ru',
 
-    url="http://packages.python.org/django-tinymce-attachment",
+    url="http://packages.python.org/redsolutioncms.django-tinymce-attachment",
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
@@ -42,6 +42,6 @@ setup(
     zip_safe=False,
     long_description=open('README').read(),
     entry_points={
-        'grandma_setup': ['attachment = attachment.grandma_setup', ],
+        'redsolution_setup': ['attachment = attachment.redsolution_setup', ],
     }
 )
