@@ -36,7 +36,7 @@ setup(
         'Topic :: Software Development :: Version Control',
     ],
     packages=find_packages(),
-    install_requires=['redsolution.django-tinymce==0.1.0', 'imagekit==0.3.3'],
+    install_requires=['redsolutioncms.django-tinymce==1.5', 'django-imagekit==0.3.3'],
     include_package_data=True,
     zip_safe=False,
     long_description=open('README').read(),
