@@ -10,10 +10,10 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name="grandma.django-tinymce-attachment",
+    name="redsolutioncms.django-tinymce-attachment",
     version="0.1.0",
     description=("Django tinymce attachment" +
-        " with GrandmaCMS integration"),
+        " with RedsolutionCMS integration"),
     license="LGPL",
     keywords="django tinymce attachment",
 
@@ -36,7 +36,7 @@ setup(
         'Topic :: Software Development :: Version Control',
     ],
     packages=find_packages(),
-    install_requires=[],
+    install_requires=['redsolution.django-tinymce==0.1.0', 'imagekit==0.3.3'],
     include_package_data=True,
     zip_safe=False,
     long_description=open('README').read(),
