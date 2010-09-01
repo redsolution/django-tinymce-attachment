@@ -18,3 +18,10 @@ class ImagePreviewField(models.ImageField):
             defaults['widget'] = ImagePreviewWidget
 
         return super(ImagePreviewField, self).formfield(**defaults)
+
+try:
+    from south.modelsinspector import add_introspection_rules
+except ImportError:
+    pass
+else:
+    add_introspection_rules([], ["^attachment\.fields\.ImagePreviewField"])
