@@ -1,5 +1,5 @@
 from django.contrib import admin
-from attachment.grandma_setup.models import AttachmentSettings, AttachmentModel, AttachmentLink
+from attachment.redsolution_setup.models import AttachmentSettings, AttachmentModel, AttachmentLink
 
 class AttachmentModelInline(admin.TabularInline):
     model = AttachmentModel

@@ -2,7 +2,7 @@
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from grandma.models import BaseSettings
+from redsolution.models import BaseSettings
 
 class AttachmentSettings(BaseSettings):
     pass

@@ -10,10 +10,10 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name="grandma.django-tinymce-attachment",
+    name="redsolution.django-tinymce-attachment",
     version="0.1.0",
-    description=("Django tinymce attachment" +
-        " with GrandmaCMS integration"),
+    description=("Django tinymce attachment" + 
+        " with RedsolutionCMS integration"),
     license="LGPL",
     keywords="django tinymce attachment",
 
@@ -41,6 +41,6 @@ setup(
     zip_safe=False,
     long_description=open('README').read(),
     entry_points={
-        'grandma_setup': ['attachment = attachment.grandma_setup', ],
+        'redsolution_setup': ['attachment = attachment.redsolution_setup', ],
     }
 )
