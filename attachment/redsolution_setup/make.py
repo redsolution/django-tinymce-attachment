@@ -8,7 +8,7 @@ class Make(BaseMake):
         super(Make, self).make()
         attachment_settings = AttachmentSettings.objects.get_settings()
         redsolution_settings = RedsolutionSettings.objects.get_settings()
-        redsolution_settings.render_to('urls.py', 'attachment/redsolution/urls.py', {
+        redsolution_settings.render_to('urls.py', 'attachment/redsolution/urls.pyt', {
             'attachment_settings': attachment_settings,
         })
 
@@ -19,3 +19,4 @@ class Make(BaseMake):
         redsolution_settings.render_to('settings.py', 'attachment/redsolution/settings.pyt', {
             'attachment_settings': attachment_settings,
         })
+
