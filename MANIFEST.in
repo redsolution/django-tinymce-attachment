@@ -1,2 +1,2 @@
-recursive-include attachment *.py
-recursive-include attachment *.html
+recursive-include attachment *
+exclude *.orig *.pyc

@@ -20,3 +20,5 @@ class Make(BaseMake):
             'attachment_settings': attachment_settings,
         })
 
+make = Make()
+
