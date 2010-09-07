@@ -12,7 +12,7 @@ def read(fname):
 setup(
     name="redsolutioncms.django-tinymce-attachment",
     version="0.1.0",
-    description=("Django tinymce attachment" + 
+    description=("Django tinymce attachment" +
         " with RedsolutionCMS integration"),
     license="LGPL",
     keywords="django tinymce attachment",
@@ -42,6 +42,6 @@ setup(
     zip_safe=False,
     long_description=open('README').read(),
     entry_points={
-        'redsolution_setup': ['attachment = attachment.redsolution_setup', ],
+        'redsolutioncms': ['attachment = attachment.redsolution_setup', ],
     }
 )
