@@ -1,2 +1,3 @@
-recursive-include attachment *
+recursive-include chunks *
+include README README.rst DESCRIPTION INSTALL.txt
 exclude *.orig *.pyc
