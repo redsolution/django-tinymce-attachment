@@ -1,1 +1,3 @@
-Django tinymce attachment with RedsolutionCMS integration
+Allows to attach files and images for any objects, specified in configuration.
+If you use TinyMCE to edit object content, this module makes for you links to 
+files in hyperlink select box and list of images in image select box. 
