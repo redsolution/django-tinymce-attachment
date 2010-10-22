@@ -42,7 +42,6 @@ setup(
     install_requires=[
         'redsolutioncms.django-tinymce==1.5',
         'django-imagekit==0.3.3',
-        'PIL',
     ],
     include_package_data=True,
     zip_safe=False,
