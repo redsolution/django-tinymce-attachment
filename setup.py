@@ -29,7 +29,7 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'License :: Freely Distributable',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
         'Framework :: Django',
         'Environment :: Web Environment',
         'Natural Language :: Russian',
