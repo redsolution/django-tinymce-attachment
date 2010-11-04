@@ -29,7 +29,7 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'License :: Freely Distributable',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
         'Framework :: Django',
         'Environment :: Web Environment',
         'Natural Language :: Russian',
@@ -40,7 +40,7 @@ setup(
     ],
     packages=find_packages(exclude=['example', 'example.*']),
     install_requires=[
-        'redsolutioncms.django-tinymce==1.5',
+        'redsolutioncms.django-tinymce==1.5.0',
         'django-imagekit==0.3.3',
     ],
     include_package_data=True,
