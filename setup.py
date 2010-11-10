@@ -16,7 +16,7 @@ setup(
     name="redsolutioncms.django-tinymce-attachment",
     version=__import__('attachment').__version__,
     description=read('DESCRIPTION'),
-    license="LGPL",
+    license="GPLv3",
     keywords="django tinymce attachment",
 
     author="Alexander Ivanov",
