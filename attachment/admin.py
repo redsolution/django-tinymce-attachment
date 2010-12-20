@@ -7,16 +7,17 @@ from django.core.exceptions import ImproperlyConfigured
 from attachment.importpath import importpath
 from attachment.forms import AttachmentImageForm, AttachmentFileForm
 from attachment.models import AttachmentImage, AttachmentFile
+from attachment.settings import ATTACHMENT_EXTRA_IMAGES, ATTACHMENT_EXTRA_FILES
 
 class AttachmentImageInlines(generic.GenericStackedInline):
     model = AttachmentImage
     form = AttachmentImageForm
-    extra = 3
+    extra = ATTACHMENT_EXTRA_IMAGES
 
 class AttachmentFileInlines(generic.GenericStackedInline):
     model = AttachmentFile
     form = AttachmentFileForm
-    extra = 3
+    extra = ATTACHMENT_EXTRA_FILES
 
 try:
     admin.site.register(AttachmentImage)

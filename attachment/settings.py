@@ -9,4 +9,6 @@ ATTACHMENT_UPLOAD_DIR = getattr(settings, 'ATTACHMENT_UPLOAD_DIR', 'upload/attac
 ATTACHMENT_CACHE_DIR = getattr(settings, 'ATTACHMENT_CACHE_DIR', 'upload/attachment/cache')
 ATTACHMENT_IKSPECS = getattr(settings, 'ATTACHMENT_IKSPECS', 'attachment.ikspecs')
 ATTACHMENT_LEVEL_INDICATOR = getattr(settings, 'ATTACHMENT_LEVEL_INDICATOR', u'\u00A0\u00A0\u00A0')
+ATTACHMENT_EXTRA_IMAGES = getattr(settings, 'ATTACHMENT_EXTRA_IMAGES', 3)
+ATTACHMENT_EXTRA_FILES = getattr(settings, 'ATTACHMENT_EXTRA_FILES', 3)
 
