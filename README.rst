@@ -87,6 +87,10 @@ Here are screenshots that demonstrates attachment work:
 * |Image list| - image lists
 * |Attached files| - attached files
 
+Changelog:
+----------
+
+* 0.2.0 - Add field "title" for models AttachmentFile, AttachmentImage
 
 Classifiers:
 -------------

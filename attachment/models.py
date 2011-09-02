@@ -27,6 +27,9 @@ class AttachmentImage(ImageModel):
 
     image = ImagePreviewField(verbose_name=_('image'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
 
+    title = models.CharField(verbose_name=_('title'), max_length=100,
+        blank=True, null=True)
+
     def __unicode__(self):
         if self.image:
             return os.path.basename(self.image.url)
@@ -43,6 +46,9 @@ class AttachmentFile(models.Model):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     file = models.FileField(verbose_name=_('file'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+
+    title = models.CharField(verbose_name=_('title'), max_length=100,
+        blank=True, null=True)
 
     def __unicode__(self):
         if self.file:
