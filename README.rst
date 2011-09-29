@@ -91,6 +91,7 @@ Changelog:
 ----------
 
 * 0.2.0 - Add field "title" for models AttachmentFile, AttachmentImage
+* 0.3.0 - Ordering by new "position" field enabled.
 
 Classifiers:
 -------------
