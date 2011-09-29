@@ -14,6 +14,7 @@ class AttachmentImage(ImageModel):
     class Meta:
         verbose_name = _('image')
         verbose_name_plural = _('images')
+        ordering = ('position',)
 
     class IKOptions:
         spec_module = settings.ATTACHMENT_IKSPECS
@@ -26,7 +27,9 @@ class AttachmentImage(ImageModel):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     image = ImagePreviewField(verbose_name=_('image'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
-
+    
+    position = models.IntegerField(verbose_name=u'Порядок расположения', default=1, blank=False)
+    
     title = models.CharField(verbose_name=_('title'), max_length=100,
         blank=True, null=True)
 
@@ -46,6 +49,8 @@ class AttachmentFile(models.Model):
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     file = models.FileField(verbose_name=_('file'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+
+    position = models.IntegerField(verbose_name=u'Порядок расположения', default=1, blank=False)
 
     title = models.CharField(verbose_name=_('title'), max_length=100,
         blank=True, null=True)

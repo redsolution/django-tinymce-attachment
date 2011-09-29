@@ -10,11 +10,17 @@ from attachment.models import AttachmentImage, AttachmentFile
 from attachment.settings import ATTACHMENT_EXTRA_IMAGES, ATTACHMENT_EXTRA_FILES
 
 class AttachmentImageInlines(generic.GenericStackedInline):
+    class Meta:
+        ordering = ('position',)
+    
     model = AttachmentImage
     form = AttachmentImageForm
     extra = ATTACHMENT_EXTRA_IMAGES
 
 class AttachmentFileInlines(generic.GenericStackedInline):
+    class Meta:
+        ordering = ('position',)
+    
     model = AttachmentFile
     form = AttachmentFileForm
     extra = ATTACHMENT_EXTRA_FILES
