@@ -30,6 +30,10 @@ Specify Model to be listed in link-list ::
     ATTACHMENT_LINK_MODELS = [
         '<app>.models.<Model>',
     ]
+
+Disable image grouping (enabled by default) ::
+
+    GROUP_IMAGES = False
     
 For objects listed in link-list these attributes will be used:
 
@@ -90,8 +94,9 @@ Here are screenshots that demonstrates attachment work:
 Changelog:
 ----------
 
-* 0.2.0 - Add field "title" for models AttachmentFile, AttachmentImage
+* 0.4.0 - Grouping images by new "group" field enabled.
 * 0.3.0 - Ordering by new "position" field enabled.
+* 0.2.0 - Add field "title" for models AttachmentFile, AttachmentImage
 
 Classifiers:
 -------------
