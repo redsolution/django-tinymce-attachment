@@ -7,13 +7,14 @@ from django.core.exceptions import ImproperlyConfigured
 from attachment.importpath import importpath
 from attachment.forms import AttachmentImageForm, AttachmentFileForm
 from attachment.models import AttachmentImage, AttachmentFile
-from attachment.settings import ATTACHMENT_EXTRA_IMAGES, ATTACHMENT_EXTRA_FILES
+from attachment.settings import ATTACHMENT_EXTRA_IMAGES, ATTACHMENT_EXTRA_FILES, GROUP_IMAGES
 
 class AttachmentImageInlines(generic.GenericStackedInline):
     class Meta:
         ordering = ('position',)
     
     model = AttachmentImage
+    exclude = ('group',) if not GROUP_IMAGES else None
     form = AttachmentImageForm
     extra = ATTACHMENT_EXTRA_IMAGES
 

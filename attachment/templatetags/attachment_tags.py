@@ -6,6 +6,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from attachment.models import AttachmentImage, AttachmentFile
+from classytags.arguments import Argument
+from classytags.core import Options
+from classytags.helpers import AsTag
 
 INTENT_ATTACHMENTS = 'attachments'
 INTENT_IMAGES = 'images'
@@ -62,7 +65,7 @@ class GetAttachments(template.Node):
         return u''
 
 def get_attachments(parser, token):
-    """Show attachments for object"""
+    """Get attachments for object"""
     splited = token.split_contents()
     if len(splited) != 5 or splited[0].split('_')[1] not in INTENTS or splited[1] != 'for' or splited[3] != 'as':
         raise template.TemplateSyntaxError, "Invalid syntax. Use ``{% get_<attachments|images|files> for <object> as <variable> %}``"
@@ -70,3 +73,42 @@ def get_attachments(parser, token):
 
 for intent in INTENTS:
     register.tag('get_%s' % intent, get_attachments)
+
+
+class GetImageGroups(AsTag):
+    """ Get a dict like {group_name: [group_image_list]} of all the images
+        from image_list with group attribute specified.
+    """
+    name = 'get_image_groups'
+    options = Options(
+        'for',
+        Argument('image_list', resolve=True, required=True),
+        'as',
+        Argument('varname', resolve=False, required=True),
+    )
+
+    def get_value(self, context, image_list):
+        result = {}
+        for image in image_list:
+            if image.group:
+                group_name = image.group
+                if not result.has_key(group_name):
+                    result[group_name] = []
+                result[group_name] += [image]
+        return result
+
+register.tag(GetImageGroups)
+
+
+@register.filter
+def ungrouped(value):
+    """Filter images with no group attribute specified from image_list"""
+    return [image for image in value if not image.group]
+
+@register.filter
+def key(value, arg):
+    """Get value from dict by string key"""
+    try:
+        return value[arg]
+    except KeyError:
+        return None

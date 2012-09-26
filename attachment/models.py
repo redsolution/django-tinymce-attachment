@@ -26,12 +26,17 @@ class AttachmentImage(ImageModel):
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
-    image = ImagePreviewField(verbose_name=_('image'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+    image = ImagePreviewField(verbose_name=_('image'),
+        upload_to=settings.ATTACHMENT_UPLOAD_DIR)
     
-    position = models.IntegerField(verbose_name=u'Порядок расположения', default=1, blank=False)
+    position = models.IntegerField(verbose_name=_('position'),
+        default=1, blank=False)
     
-    title = models.CharField(verbose_name=_('title'), max_length=100,
-        blank=True, null=True)
+    title = models.CharField(verbose_name=_('title'),
+        max_length=200, blank=True, null=True)
+
+    group = models.CharField(verbose_name=_('group'),
+        max_length=200, blank=True, null=True)
 
     def __unicode__(self):
         if self.image:
