@@ -94,6 +94,7 @@ Here are screenshots that demonstrates attachment work:
 Changelog:
 ----------
 
+* 0.4.1 - ``get_image_groups`` tag returns a sorted dict
 * 0.4.0 - Grouping images by new "group" field enabled.
 * 0.3.0 - Ordering by new "position" field enabled.
 * 0.2.0 - Add field "title" for models AttachmentFile, AttachmentImage
