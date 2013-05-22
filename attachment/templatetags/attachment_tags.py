@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpRequest
 from django.template.loader import render_to_string
+from django.utils.datastructures import SortedDict
 from attachment.models import AttachmentImage, AttachmentFile
 from classytags.arguments import Argument
 from classytags.core import Options
@@ -14,6 +14,7 @@ INTENT_ATTACHMENTS = 'attachments'
 INTENT_IMAGES = 'images'
 INTENT_FILES = 'files'
 INTENTS = [INTENT_ATTACHMENTS, INTENT_IMAGES, INTENT_FILES]
+
 
 def get_list(intent, object, context):
     result = []
@@ -32,6 +33,7 @@ def get_list(intent, object, context):
 
 register = template.Library()
 
+
 class ShowAttachments(template.Node):
     def __init__(self, intent, object):
         self.intent = intent
@@ -42,6 +44,7 @@ class ShowAttachments(template.Node):
         return render_to_string('attachment/show.html', {
             'attachments': attachments,
         }, context_instance=template.RequestContext(context.get('request', HttpRequest())))
+
 
 def show_attachments(parser, token):
     """Show attachments for object"""
@@ -63,6 +66,7 @@ class GetAttachments(template.Node):
     def render(self, context):
         context[self.variable] = get_list(self.intent, self.object, context)
         return u''
+
 
 def get_attachments(parser, token):
     """Get attachments for object"""
@@ -88,13 +92,11 @@ class GetImageGroups(AsTag):
     )
 
     def get_value(self, context, image_list):
-        result = {}
+        result = SortedDict()
         for image in image_list:
             if image.group:
                 group_name = image.group
-                if not result.has_key(group_name):
-                    result[group_name] = []
-                result[group_name] += [image]
+                result.setdefault(group_name, []).append(image)
         return result
 
 register.tag(GetImageGroups)
@@ -104,6 +106,7 @@ register.tag(GetImageGroups)
 def ungrouped(value):
     """Filter images with no group attribute specified from image_list"""
     return [image for image in value if not image.group]
+
 
 @register.filter
 def key(value, arg):
