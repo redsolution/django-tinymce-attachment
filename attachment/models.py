@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import os
 from django.db import models
 from imagekit.models import ImageModel
@@ -9,6 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 from attachment.fields import ImagePreviewField
+
 
 class AttachmentImage(ImageModel):
     class Meta:
@@ -32,8 +32,7 @@ class AttachmentImage(ImageModel):
     position = models.IntegerField(verbose_name=_('position'),
         default=1, blank=False)
     
-    title = models.CharField(verbose_name=_('title'),
-        max_length=200, blank=True, null=True)
+    title = models.TextField(verbose_name=_('title'), blank=True, null=True)
 
     group = models.CharField(verbose_name=_('group'),
         max_length=200, blank=True, null=True)
@@ -43,6 +42,7 @@ class AttachmentImage(ImageModel):
             return os.path.basename(self.image.url)
         else:
             return u''
+
 
 class AttachmentFile(models.Model):
     class Meta:
@@ -57,8 +57,7 @@ class AttachmentFile(models.Model):
 
     position = models.IntegerField(verbose_name=u'Порядок расположения', default=1, blank=False)
 
-    title = models.CharField(verbose_name=_('title'), max_length=100,
-        blank=True, null=True)
+    title = models.TextField(verbose_name=_('title'), blank=True, null=True)
 
     def __unicode__(self):
         if self.file:
