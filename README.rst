@@ -93,7 +93,7 @@ Here are screenshots that demonstrates attachment work:
 
 Changelog:
 ----------
-
+* 0.5.1 - Russian translation added.
 * 0.5.0 - Image and file title of any size
 * 0.4.1 - ``get_image_groups`` tag returns a sorted dict
 * 0.4.0 - Grouping images by new "group" field enabled.

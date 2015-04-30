@@ -55,7 +55,7 @@ class AttachmentFile(models.Model):
 
     file = models.FileField(verbose_name=_('file'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
 
-    position = models.IntegerField(verbose_name=u'Порядок расположения', default=1, blank=False)
+    position = models.IntegerField(verbose_name=_('position'), default=1, blank=False)
 
     title = models.TextField(verbose_name=_('title'), blank=True, null=True)
 
