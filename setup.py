@@ -40,7 +40,7 @@ setup(
     ],
     packages=find_packages(exclude=['example', 'example.*']),
     install_requires=[
-        'redsolutioncms.django-tinymce>=1.5.0',
+        'django-tinymce<1.6',
         'django-imagekit==0.3.3',
         'django-classy-tags',
     ],
