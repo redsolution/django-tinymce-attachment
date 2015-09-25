@@ -2,14 +2,14 @@
 
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.admin import GenericStackedInline
 from django.core.exceptions import ImproperlyConfigured
 from attachment.importpath import importpath
 from attachment.forms import AttachmentImageForm, AttachmentFileForm
 from attachment.models import AttachmentImage, AttachmentFile
 from attachment.settings import ATTACHMENT_EXTRA_IMAGES, ATTACHMENT_EXTRA_FILES, GROUP_IMAGES
 
-class AttachmentImageInlines(generic.GenericStackedInline):
+class AttachmentImageInlines(GenericStackedInline):
     class Meta:
         ordering = ('position',)
     
@@ -18,7 +18,7 @@ class AttachmentImageInlines(generic.GenericStackedInline):
     form = AttachmentImageForm
     extra = ATTACHMENT_EXTRA_IMAGES
 
-class AttachmentFileInlines(generic.GenericStackedInline):
+class AttachmentFileInlines(GenericStackedInline):
     class Meta:
         ordering = ('position',)
     
