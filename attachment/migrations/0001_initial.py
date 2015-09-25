@@ -1,63 +1,47 @@
-# encoding: utf-8
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
-class Migration(SchemaMigration):
-
-    def forwards(self, orm):
-        
-        # Adding model 'AttachmentImage'
-        db.create_table('attachment_attachmentimage', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('image', self.gf('attachment.fields.ImagePreviewField')(max_length=100)),
-        ))
-        db.send_create_signal('attachment', ['AttachmentImage'])
-
-        # Adding model 'AttachmentFile'
-        db.create_table('attachment_attachmentfile', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
-            ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('file', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
-        ))
-        db.send_create_signal('attachment', ['AttachmentFile'])
+from django.db import models, migrations
+import attachment.fields
 
 
-    def backwards(self, orm):
-        
-        # Deleting model 'AttachmentImage'
-        db.delete_table('attachment_attachmentimage')
+class Migration(migrations.Migration):
 
-        # Deleting model 'AttachmentFile'
-        db.delete_table('attachment_attachmentfile')
+    dependencies = [
+        ('contenttypes', '0002_remove_content_type_name'),
+    ]
 
-
-    models = {
-        'attachment.attachmentfile': {
-            'Meta': {'object_name': 'AttachmentFile'},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'file': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {})
-        },
-        'attachment.attachmentimage': {
-            'Meta': {'object_name': 'AttachmentImage'},
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('attachment.fields.ImagePreviewField', [], {'max_length': '100'}),
-            'object_id': ('django.db.models.fields.PositiveIntegerField', [], {})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        }
-    }
-
-    complete_apps = ['attachment']
+    operations = [
+        migrations.CreateModel(
+            name='AttachmentFile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.PositiveIntegerField()),
+                ('file', models.FileField(upload_to=b'upload/attachment/source', verbose_name='file')),
+                ('position', models.IntegerField(default=1, verbose_name='\u041f\u043e\u0440\u044f\u0434\u043e\u043a \u0440\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u044f')),
+                ('title', models.CharField(max_length=100, null=True, verbose_name='title', blank=True)),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+            ],
+            options={
+                'verbose_name': 'file',
+                'verbose_name_plural': 'files',
+            },
+        ),
+        migrations.CreateModel(
+            name='AttachmentImage',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('object_id', models.PositiveIntegerField()),
+                ('image', attachment.fields.ImagePreviewField(upload_to=b'upload/attachment/source', verbose_name='image')),
+                ('position', models.IntegerField(default=1, verbose_name='position')),
+                ('title', models.CharField(max_length=200, null=True, verbose_name='title', blank=True)),
+                ('group', models.CharField(max_length=200, null=True, verbose_name='group', blank=True)),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+            ],
+            options={
+                'ordering': ('position',),
+                'verbose_name': 'image',
+                'verbose_name_plural': 'images',
+            },
+        ),
+    ]
