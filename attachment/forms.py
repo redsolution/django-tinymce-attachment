@@ -7,6 +7,7 @@ from attachment.models import AttachmentImage, AttachmentFile
 class AttachmentImageForm(forms.ModelForm):
     class Meta:
         model = AttachmentImage
+        fields = '__all__'
         widgets = {
             'title': TextInput(),
         }
@@ -15,6 +16,7 @@ class AttachmentImageForm(forms.ModelForm):
 class AttachmentFileForm(forms.ModelForm):
     class Meta:
         model = AttachmentFile
+        fields = '__all__'
         widgets = {
             'title': TextInput(),
         }
