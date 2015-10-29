@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 
 urlpatterns = patterns('',
     url(r'^admin/(?P<app_label>\w+)/(?P<module_name>\w+)/(?P<object_id>\d{1,7})/images/$', 'attachment.views.images'),
