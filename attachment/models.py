@@ -27,7 +27,7 @@ class AttachmentImage(ImageModel):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     image = ImagePreviewField(verbose_name=_('image'),
-        upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+        upload_to=settings.ATTACHMENT_UPLOAD_DIR, max_length=255)
     
     position = models.IntegerField(verbose_name=_('position'),
         default=1, blank=False)
@@ -53,7 +53,7 @@ class AttachmentFile(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    file = models.FileField(verbose_name=_('file'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+    file = models.FileField(verbose_name=_('file'), upload_to=settings.ATTACHMENT_UPLOAD_DIR, max_length=255)
 
     position = models.IntegerField(verbose_name=_('position'), default=1, blank=False)
 

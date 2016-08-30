@@ -12,11 +12,14 @@ from attachment.settings import ATTACHMENT_EXTRA_IMAGES, ATTACHMENT_EXTRA_FILES,
 class AttachmentImageInlines(GenericStackedInline):
     class Meta:
         ordering = ('position',)
-    
+
     model = AttachmentImage
     exclude = ('group',) if not GROUP_IMAGES else None
     form = AttachmentImageForm
     extra = ATTACHMENT_EXTRA_IMAGES
+
+class AttachmentImageAdmin(admin.ModelAdmin):
+    form = AttachmentImageForm
 
 class AttachmentFileInlines(GenericStackedInline):
     class Meta:
@@ -26,13 +29,16 @@ class AttachmentFileInlines(GenericStackedInline):
     form = AttachmentFileForm
     extra = ATTACHMENT_EXTRA_FILES
 
+class AttachmentFileAdmin(admin.ModelAdmin):
+    form = AttachmentFileForm
+
 try:
-    admin.site.register(AttachmentImage)
+    admin.site.register(AttachmentImage, AttachmentImageAdmin)
 except admin.sites.AlreadyRegistered:
     pass
 
 try:
-    admin.site.register(AttachmentFile)
+    admin.site.register(AttachmentFile, AttachmentFileAdmin)
 except admin.sites.AlreadyRegistered:
     pass
 
