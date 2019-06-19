@@ -2,23 +2,26 @@
 
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.admin import GenericStackedInline
 from django.core.exceptions import ImproperlyConfigured
 from attachment.importpath import importpath
 from attachment.forms import AttachmentImageForm, AttachmentFileForm
 from attachment.models import AttachmentImage, AttachmentFile
 from attachment.settings import ATTACHMENT_EXTRA_IMAGES, ATTACHMENT_EXTRA_FILES, GROUP_IMAGES
 
-class AttachmentImageInlines(generic.GenericStackedInline):
+class AttachmentImageInlines(GenericStackedInline):
     class Meta:
         ordering = ('position',)
-    
+
     model = AttachmentImage
     exclude = ('group',) if not GROUP_IMAGES else None
     form = AttachmentImageForm
     extra = ATTACHMENT_EXTRA_IMAGES
 
-class AttachmentFileInlines(generic.GenericStackedInline):
+class AttachmentImageAdmin(admin.ModelAdmin):
+    form = AttachmentImageForm
+
+class AttachmentFileInlines(GenericStackedInline):
     class Meta:
         ordering = ('position',)
     
@@ -26,13 +29,16 @@ class AttachmentFileInlines(generic.GenericStackedInline):
     form = AttachmentFileForm
     extra = ATTACHMENT_EXTRA_FILES
 
+class AttachmentFileAdmin(admin.ModelAdmin):
+    form = AttachmentFileForm
+
 try:
-    admin.site.register(AttachmentImage)
+    admin.site.register(AttachmentImage, AttachmentImageAdmin)
 except admin.sites.AlreadyRegistered:
     pass
 
 try:
-    admin.site.register(AttachmentFile)
+    admin.site.register(AttachmentFile, AttachmentFileAdmin)
 except admin.sites.AlreadyRegistered:
     pass
 

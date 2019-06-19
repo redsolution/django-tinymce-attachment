@@ -5,7 +5,7 @@ from imagekit.models import ImageModel
 from attachment import settings
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 from attachment.fields import ImagePreviewField
 
@@ -24,10 +24,10 @@ class AttachmentImage(ImageModel):
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     image = ImagePreviewField(verbose_name=_('image'),
-        upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+        upload_to=settings.ATTACHMENT_UPLOAD_DIR, max_length=255)
     
     position = models.IntegerField(verbose_name=_('position'),
         default=1, blank=False)
@@ -51,9 +51,9 @@ class AttachmentFile(models.Model):
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
-    file = models.FileField(verbose_name=_('file'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+    file = models.FileField(verbose_name=_('file'), upload_to=settings.ATTACHMENT_UPLOAD_DIR, max_length=255)
 
     position = models.IntegerField(verbose_name=_('position'), default=1, blank=False)
 
