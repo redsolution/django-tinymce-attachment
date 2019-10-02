@@ -1,19 +1,16 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.apps import apps as django_apps
 from imagekit.models import ImageModel
-from optparse import make_option
 import sys
 
 
 class Command(BaseCommand):
     help = ('Update Imagekit cached files for spec.')
 
-    option_list = BaseCommand.option_list + (
-        make_option('-m', '--model', action='store', type='string', dest='model',
-                    help='Model name "attachment.AttachmentImage" ', default='attachment.AttachmentImage'),
-        make_option('-s', '--spec', action='store', type='string', dest='spec',
-                    help='Spec name'),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('-m', '--model', action='store', type=str, dest='model', help='Model name "attachment.AttachmentImage" ', default='attachment.AttachmentImage'),
+        parser.add_argument('-s', '--spec', action='store', type=str, dest='spec', help='Spec name'),
+
     can_import_settings = True
 
     def handle(self, *args, **options):

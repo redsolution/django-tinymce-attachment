@@ -2,21 +2,31 @@
 
 from django import forms
 from django.db import models
-from attachment.widgets import ImagePreviewWidget
-from django.contrib.admin.widgets import AdminFileWidget
+from attachment.widgets import ImagePreviewWidget, ImagePreviewWidgetHorizontal, ImagePreviewWidgetVertical
+
 
 class ImagePreviewFormField(forms.ImageField):
     widget = ImagePreviewWidget
 
+
 class ImagePreviewField(models.ImageField):
+
+    def __init__(self, *args, **kwargs):
+        widget_type = kwargs.get('widget_type')
+        if widget_type:
+            if widget_type == 'horizontal':
+                self.widget = ImagePreviewWidgetHorizontal
+            elif widget_type == 'vertial':
+                self.widget = ImagePreviewWidgetVertical
+            kwargs.pop('widget_type')
+        else:
+            self.widget = ImagePreviewWidget
+        super(ImagePreviewField, self).__init__(*args, **kwargs)
+
     def formfield(self, **kwargs):
-        defaults = {'widget': ImagePreviewWidget}
+        defaults = {}
         defaults.update(kwargs)
-
-        # As an ugly hack, we override the admin widget
-        if defaults['widget'] == AdminFileWidget:
-            defaults['widget'] = ImagePreviewWidget
-
+        defaults['widget'] = self.widget
         return super(ImagePreviewField, self).formfield(**defaults)
 
 try:

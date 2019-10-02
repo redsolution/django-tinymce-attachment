@@ -1,1 +1,2 @@
-__version__ = '0.5.7.1'
+__version__ = '1.11'
+default_app_config = 'attachment.apps.AttachmentAppConfig'

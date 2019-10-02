@@ -31,9 +31,13 @@ msgstr "Изображение"
 msgid "images"
 msgstr "Изображения"
 
-#: models.py:32 models.py:58
+#: models.py:28 models.py:58
 msgid "position"
-msgstr "Порядок расположения"
+msgstr "Порядок"
+
+#: models.py:32
+msgid "role"
+msgstr "Роль"
 
 #: models.py:35 models.py:60
 msgid "title"
