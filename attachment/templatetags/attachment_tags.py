@@ -4,11 +4,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpRequest
 from django.template.loader import render_to_string
-from django.utils.datastructures import SortedDict
 from attachment.models import AttachmentImage, AttachmentFile
 from classytags.arguments import Argument
 from classytags.core import Options
 from classytags.helpers import AsTag
+from collections import OrderedDict
 
 INTENT_ATTACHMENTS = 'attachments'
 INTENT_IMAGES = 'images'
@@ -43,7 +43,7 @@ class ShowAttachments(template.Node):
         attachments = get_list(self.intent, self.object, context)
         return render_to_string('attachment/show.html', {
             'attachments': attachments,
-        }, context_instance=template.RequestContext(context.get('request', HttpRequest())))
+        }, context.get('request', HttpRequest()))
 
 
 def show_attachments(parser, token):
@@ -92,7 +92,7 @@ class GetImageGroups(AsTag):
     )
 
     def get_value(self, context, image_list):
-        result = SortedDict()
+        result = OrderedDict()
         for image in image_list:
             if image.group:
                 group_name = image.group

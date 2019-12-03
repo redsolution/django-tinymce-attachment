@@ -40,9 +40,10 @@ setup(
     ],
     packages=find_packages(exclude=['example', 'example.*']),
     install_requires=[
-        'django-tinymce<1.6',
+        'django-tinymce==2.6.0',
         'django-imagekit==0.3.3',
-        'django-classy-tags',
+        'django-classy-tags >=0.3,<=0.9.0',
+        'django==1.11.*',
     ],
     include_package_data=True,
     zip_safe=False,
