@@ -4,7 +4,7 @@ from random import randint
 from attachment.settings import ATTACHMENT_UPLOAD_DIR
 from django.conf import settings
 from django.template.defaultfilters import slugify
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 from attachment.models import AttachmentImage
 from os.path import join, basename, isfile
 from shutil import rmtree
@@ -70,7 +70,7 @@ class ZipExtractor(object):
             ext = ''
             filename = basename(path)
         filename = re.sub(r'[_.,:;@#$%^&?*|()\[\]]', '-', filename)
-        return self._get_obfuscated_name(slugify(unidecode(smart_unicode(filename)))) + ext
+        return self._get_obfuscated_name(slugify(unidecode(smart_text(filename)))) + ext
 
     def _get_path_to_file(self, path):
         return join(self.upload_dir, path)
@@ -137,7 +137,7 @@ class ZipExtractor(object):
             return True
         try:
             return string.decode('utf-8').encode('utf-8') == string
-        except UnicodeDecodeError, UnicodeEncodeError:
+        except UnicodeDecodeError as UnicodeEncodeError:
             return False
 
     def make_attachments(self):

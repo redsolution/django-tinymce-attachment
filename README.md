@@ -3,6 +3,8 @@
 
 Open source images management system based on the Django framework.
 
+documentation is not ready yet, information bellow may be incorrect
+
 ## Features
 - Work with images, files and archives.
 - integration with TinyMCE editor.
@@ -11,73 +13,20 @@ Open source images management system based on the Django framework.
 
 ## Requirements
 
-- Python 2.7
-- Django 1.11.*
-- django-tinymce 2.6.0
-- django-imagekit 0.3.3
-- django-classy-tags >=0.3,<=0.9.0
+- Python 3.5
+- Django 2.2.*
+- django-tinymce 2.9.0
+- django-imagekit 4.0.2
+- django-classy-tags 0.9.0
 
 ## Installation and basic usage
 
 
 1. Install package
 
-    ``git+git://github.com/oldroute/django-tinymce-attachment@1.11``
+    ``git+git://github.com/shoker174/django-tinymce-attachment``
 
-2. Create application ``custom_attachment``. Add next files to  app:
-
-	**resizes.py**:
-
-    ```python
-    from imagekit.processors import Resize
-
-    class ResizeThumb(Resize): # required resize
-        width = 172
-        height = 172
-
-    class ResizeDisplay(Resize):  # required resize
-        width = 1200
-        height = 900
-
-    class ResizeImg384x288(Resize): # optional resize
-        width = 384
-        height = 288
-        crop = True
-        upscale = True
-
-    class ResizeImgAutox408(Resize):  # optional resize
-        height = 408
-
-    ```
-	"Resize" it is processor for change image size. Which has the following parameters:
-    - **width** - width limit (*default: None*).
-    - **height** - height limit (*default: None*).
-    - **crop** - crop image to maintain aspect ratio for specified width and height (*default: False*).
-    - **upscale** - increase image size to maintain aspect ratio for specified width and height (*default: False*).
-
-    **ikspecs.py**:
-
-    ```python
-    from imagekit.specs import ImageSpec
-    from .resizes import *
-
-    class Thumb(ImageSpec):
-    	processors = [ResizeThumb]
-
-    class Display(ImageSpec):
-    	processors = [ResizeDisplay]
-
-    class Img384x288(ImageSpec):
-    	processors = [ResizeImg384x288]
-		quality = 80
-
-    class ImgAutox408(ImageSpec):
-    	processors = [ResizeImgAutox408]
-
-    ```
-    Image specifications is a set of processors.  Which has the following parameters:
-    - **processors** - list of image processors (*deafault: empty list*)
-    - **quality** - value in range 0 to 100 (source image have 100 quality). You can lower the jpeg image quality for optimization image size. **You cannot reduce the png image file-size in this way** (*deafault: 70*)
+2. For usage, check imagekit docs - https://django-imagekit.readthedocs.io/en/latest/#usage-overview
 
 3. Configure your settings file:
 

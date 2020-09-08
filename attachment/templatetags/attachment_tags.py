@@ -50,7 +50,7 @@ def show_attachments(parser, token):
     """Show attachments for object"""
     splited = token.split_contents()
     if len(splited) != 3 or splited[0].split('_')[1] not in INTENTS or splited[1] != 'for':
-        raise template.TemplateSyntaxError, "Invalid syntax. Use ``{% show_<attachments|images|files> for <object> %}``"
+        raise template.TemplateSyntaxError("Invalid syntax. Use ``{% show_<attachments|images|files> for <object> %}``")
     return ShowAttachments(splited[0].split('_')[1], splited[2])
 
 for intent in INTENTS:
@@ -72,7 +72,8 @@ def get_attachments(parser, token):
     """Get attachments for object"""
     splited = token.split_contents()
     if len(splited) != 5 or splited[0].split('_')[1] not in INTENTS or splited[1] != 'for' or splited[3] != 'as':
-        raise template.TemplateSyntaxError, "Invalid syntax. Use ``{% get_<attachments|images|files> for <object> as <variable> %}``"
+        raise template.TemplateSyntaxError(
+            "Invalid syntax. Use ``{% get_<attachments|images|files> for <object> as <variable> %}``")
     return GetAttachments(splited[0].split('_')[1] , splited[2], splited[4])
 
 for intent in INTENTS:

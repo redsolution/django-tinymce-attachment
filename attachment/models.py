@@ -1,37 +1,41 @@
 # -*- coding: utf-8 -*-
 import os
+
 from django.db import models
-from imagekit.models import ImageModel
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from attachment import settings
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
+
 from .fields import ImagePreviewField
 
 
-class AttachmentImage(ImageModel):
+class AttachmentImage(models.Model):
     class Meta:
         verbose_name = _('image')
         verbose_name_plural = _('images')
         ordering = ('position',)
 
-    class IKOptions:
-        spec_module = settings.ATTACHMENT_IKSPECS
-        cache_dir = settings.ATTACHMENT_CACHE_DIR
-        cache_filename_format = "%(filename)s-%(specname)s.%(extension)s"
-        image_field = 'image'
+    # class IKOptions:
+    #     spec_module = settings.ATTACHMENT_IKSPECS
+    #     cache_dir = settings.ATTACHMENT_CACHE_DIR
+    #     cache_filename_format = "%(filename)s-%(specname)s.%(extension)s"
+    #     image_field = 'image'
 
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
     position = models.IntegerField(verbose_name=_('position'), default=1, blank=False)
     image = ImagePreviewField(verbose_name=_('image'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
+    thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(80, 80)])
     title = models.TextField(verbose_name=_('title'), blank=True, null=True)
     group = models.CharField(verbose_name=_('group'), max_length=200, blank=True, null=True)
     role = models.CharField(verbose_name=_('role'), max_length=200, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.image:
             return os.path.basename(self.image.url)
         else:
@@ -43,7 +47,7 @@ class AttachmentFile(models.Model):
         verbose_name = _('file')
         verbose_name_plural = _('files')
 
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
@@ -51,7 +55,7 @@ class AttachmentFile(models.Model):
     file = models.FileField(verbose_name=_('file'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
     title = models.TextField(verbose_name=_('title'), blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.file:
             return os.path.basename(self.file.url)
         else:
@@ -64,7 +68,7 @@ class AttachmentArchive(models.Model):
         verbose_name = u'Архив вложений'
         verbose_name_plural = u'Архивы вложений'
 
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
@@ -82,7 +86,7 @@ class AttachmentArchive(models.Model):
         default=False
     )
 
-    def __unicode__(self):
+    def __str__(self):
         title = 'Null' if not self.content_object else self.content_object._meta.verbose_name.title()
         return u'{model} - {object}'.format(
             model=title,
