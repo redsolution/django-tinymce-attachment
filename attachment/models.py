@@ -1,28 +1,25 @@
 # -*- coding: utf-8 -*-
 import os
-
 from django.db import models
+from imagekit.models import ImageModel
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from attachment import settings
-from imagekit.models import ImageSpecField
-from pilkit.processors import ResizeToFill
-
 from .fields import ImagePreviewField
 
 
-class AttachmentImage(models.Model):
+class AttachmentImage(ImageModel):
     class Meta:
         verbose_name = _('image')
         verbose_name_plural = _('images')
         ordering = ('position',)
 
-    # class IKOptions:
-    #     spec_module = settings.ATTACHMENT_IKSPECS
-    #     cache_dir = settings.ATTACHMENT_CACHE_DIR
-    #     cache_filename_format = "%(filename)s-%(specname)s.%(extension)s"
-    #     image_field = 'image'
+    class IKOptions:
+        spec_module = settings.ATTACHMENT_IKSPECS
+        cache_dir = settings.ATTACHMENT_CACHE_DIR
+        cache_filename_format = "%(filename)s-%(specname)s.%(extension)s"
+        image_field = 'image'
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
@@ -30,7 +27,6 @@ class AttachmentImage(models.Model):
 
     position = models.IntegerField(verbose_name=_('position'), default=1, blank=False)
     image = ImagePreviewField(verbose_name=_('image'), upload_to=settings.ATTACHMENT_UPLOAD_DIR)
-    thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(80, 80)])
     title = models.TextField(verbose_name=_('title'), blank=True, null=True)
     group = models.CharField(verbose_name=_('group'), max_length=200, blank=True, null=True)
     role = models.CharField(verbose_name=_('role'), max_length=200, blank=True, null=True)

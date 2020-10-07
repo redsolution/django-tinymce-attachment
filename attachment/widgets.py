@@ -4,7 +4,6 @@ from django.utils.safestring import mark_safe
 from django.contrib.admin.widgets import AdminFileWidget
 from django.template.defaultfilters import slugify
 from django.utils.encoding import smart_text
-from imagekit.generatorlibrary import Thumbnail
 from unidecode import unidecode
 from django.forms.widgets import FILE_INPUT_CONTRADICTION, CheckboxInput, ClearableFileInput
 
@@ -19,7 +18,7 @@ class ImagePreviewWidget(AdminFileWidget):
         instance = getattr(value, 'instance', None)
         if instance is not None and value:
             output = ['<a target="_blank" href="%s"><img src="%s" alt="%s"/></a>' % \
-                (instance.image.url, instance.thumbnail.url, instance.image)] + output
+                (instance.image.url, instance.thumb.url, instance.image)] + output
         return mark_safe(u''.join(output))
 
     def value_from_datadict(self, data, files, name):
