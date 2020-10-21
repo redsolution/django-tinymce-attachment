@@ -16,7 +16,7 @@ documentation is not ready yet, information bellow may be incorrect
 - Python 3.5
 - Django 2.2.*
 - django-tinymce 2.9.0
-- django-imagekit 4.0.2
+- [Custom Imagekit 0.4.1 with Python 3.5 support](https://github.com/Shoker174/django-imagekit/tree/support/0.4.x)
 - django-classy-tags 0.9.0
 
 ## Installation and basic usage
