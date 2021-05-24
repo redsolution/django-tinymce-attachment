@@ -3,7 +3,7 @@ import re
 from django.utils.safestring import mark_safe
 from django.contrib.admin.widgets import AdminFileWidget
 from django.template.defaultfilters import slugify
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 from unidecode import unidecode
 from django.forms.widgets import FILE_INPUT_CONTRADICTION, CheckboxInput, ClearableFileInput
 
@@ -12,7 +12,7 @@ class ImagePreviewWidget(AdminFileWidget):
 
     template_name = 'admin/attachment/widgets/preview_image_input.html'
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         output = []
         output.append(super(AdminFileWidget, self).render(name, value, attrs)) # really for AdminFileWidget
         instance = getattr(value, 'instance', None)
@@ -23,14 +23,14 @@ class ImagePreviewWidget(AdminFileWidget):
 
     def value_from_datadict(self, data, files, name):
 
-        for key, file in files.iteritems():
+        for key, file in files.items():
             filename = file._get_name()
             ext = u""
             if '.' in filename:
                 ext = u"." + filename.rpartition('.')[2]
             filename = filename.rpartition('.')[0]
             filename = re.sub(r'[_.,:;@#$%^&?*|()\[\]]', '-', filename)
-            filename = slugify(unidecode(smart_unicode(filename))) + ext
+            filename = slugify(unidecode(smart_text(filename))) + ext
             files[key]._set_name(filename)
 
         upload = super(ImagePreviewWidget, self).value_from_datadict(data, files, name)
@@ -60,14 +60,14 @@ class ImagePreviewWidgetVertical(ImagePreviewWidget):
 class FileWidget(ClearableFileInput):
 
     def value_from_datadict(self, data, files, name):
-        for key, file in files.iteritems():
+        for key, file in files.items():
             filename = file._get_name()
             ext = u""
             if '.' in filename:
                 ext = u"." + filename.rpartition('.')[2]
             filename = filename.rpartition('.')[0]
             filename = re.sub(r'[_.,:;@#$%^&?*|()\[\]]', '-', filename)
-            filename = slugify(unidecode(smart_unicode(filename))) + ext
+            filename = slugify(unidecode(smart_text(filename))) + ext
             files[key]._set_name(filename)
 
         return files.get(name, None)
