@@ -45,6 +45,9 @@ class WatermarkBase(ImageProcessor):
         except IOError as e:
             raise IOError('Unable to open watermark source image %s: %s' % (cls.image_path, e))
 
+        if img.mode != 'RGBA' and img.mode != 'RGB':
+            img = img.convert('RGBA')
+
         mark = cls._apply_opacity(mark)
         im = cls._apply_mark(img, mark)
         return im, fmt
