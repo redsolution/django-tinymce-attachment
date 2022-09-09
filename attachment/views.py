@@ -93,5 +93,5 @@ def links(request, app_label, module_name, object_id=None):
                 url = obj.get_absolute_url()
             except AttributeError:
                 url = '/'
-            link_list.append((u'%s%s' % (prefix, unicode(obj)), url))
+            link_list.append((u'%s%s' % (prefix, str(obj)), url))
     return render_to_link_list(link_list)

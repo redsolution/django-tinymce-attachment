@@ -133,7 +133,7 @@ class ZipExtractor(object):
                     pass
 
     def _check_unicode(self, string):
-        if type(string) == unicode:
+        if type(string) == str:
             return True
         try:
             return string.decode('utf-8').encode('utf-8') == string
