@@ -41,7 +41,7 @@ setup(
     packages=find_packages(exclude=['example', 'example.*']),
     install_requires=[
         'django-tinymce==2.9.0',
-        'django-imagekit==0.4.1',
+        'django-imagekit @ git+https://github.com/redsolution/django-imagekit.git@py3',
         'django-classy-tags==0.9.0',
         'django==2.2.*',
     ],
